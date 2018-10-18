@@ -1,13 +1,25 @@
 package Tour;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Tour tour1 = new PackageTour("tour1",
-                new SingleTour("hello", 10, 10),
-                new SingleTour("world", 20, 26),
-                new SingleTour("thailand", 5, 5));
-        System.out.println(tour1.getName() + " " + tour1.getAvailableSeats() + " " + tour1.getPrice());
-        Tour tour2 = new SingleTour("tour2", 10, 20);
-        System.out.println(tour2.getName() + " " + tour2.getAvailableSeats() + " " + tour2.getPrice());
+        SingleTour st1 = new SingleTour("Jaopraya Tour",350,35,0);
+        SingleTour st2 = new SingleTour("Japan Tour",50000,20,0);
+        SingleTour st3 = new SingleTour("Ayuttaya Tour",500,50,0);
+        List<Tour> thaiTours = new ArrayList<Tour>();
+        thaiTours.add(st1);
+        thaiTours.add(st3);
+
+        PackageTour packageTour = new PackageTour("Thailand Tour",thaiTours);
+
+
+        st2.setReservedSeats(15);
+        st2.setReservedSeats(50);
+        System.out.println(st2.toString());
+
+        System.out.println(packageTour.toString());
+
+
     }
 }

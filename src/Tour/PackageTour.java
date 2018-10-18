@@ -1,33 +1,45 @@
 package Tour;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PackageTour implements Tour {
-    private List<Tour> tours;
-    private String name;
+public class PackageTour  implements  Tour{
+    private String packageName;
+    private List<Tour> tours = new ArrayList<Tour>();
 
-    public PackageTour(String name, Tour... tours) {
-        this.tours = Arrays.asList(tours);
-        this.name = name;
+    public PackageTour(String packageName, List<Tour> tours) {
+        this.packageName = packageName;
+        this.tours = tours;
     }
 
-    public void addTour(Tour... tours) {
-        this.tours.addAll(Arrays.asList(tours));
-    }
+
 
     @Override
     public String getName() {
-        return name;
+        return packageName;
     }
 
     @Override
     public double getPrice() {
-        return tours.stream().mapToDouble(Tour::getPrice).sum();
+        double total = 0;
+        for (Tour t : tours)
+            total += t.getPrice();
+        return total*0.9;
     }
 
     @Override
     public int getAvailableSeats() {
-        return tours.isEmpty() ? 0 : tours.stream().mapToInt(Tour::getAvailableSeats).min().getAsInt();
+        int availableSeats = Integer.MAX_VALUE;
+        for (Tour t : tours){
+            if(availableSeats > t.getAvailableSeats() ) {
+                availableSeats = t.getAvailableSeats();
+            }
+        }
+        return availableSeats;
     }
+    @Override
+    public String toString(){
+        return "Name :"+packageName +", Price :"+getPrice() +", Available Seats :"+ getAvailableSeats();
+    }
+
 }
